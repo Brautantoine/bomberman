@@ -1,0 +1,64 @@
+#include "imgui.h"
+#include "imgui-SFML.h"
+#include "utils/simple_mail_box.hpp"
+#include "graphics/engine.hpp"
+#include "graphics/dummy_sprite.hpp"
+#include "events/event_processor.hpp"
+
+#include <iostream>
+#include <thread>
+
+#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/System/Clock.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
+#include <time.h>
+#include <limits.h>
+
+#include <unistd.h>
+
+void test_scope();
+
+int main()
+{
+    frame_timer f = {0,0,0,false};
+    engine* e = engine::getInstance();
+    layout_manager* lm = layout_manager::getInstance();
+    dummy_sprite d(0);
+    dummy_sprite dd(5);
+    dummy_sprite ddd(2);
+    dummy_sprite erd(4);
+    lm->registerDrawable(&d);
+    lm->registerDrawable(&dd);
+    lm->registerDrawable(&ddd);
+    lm->registerDrawable(&erd);
+
+    event_processor ep(KEYBOARD,[&](void* data)
+    {
+      std::cerr << "lambda called" << '\n';
+      sf::Event e = ((game_event::event*)data)->event;
+      if(e.type == sf::Event::KeyPressed)
+      {
+        if(e.key.code == sf::Keyboard::Up)
+        {
+          std::cerr << "UP" << '\n';
+        }
+      }
+    });
+
+    std::cout << "ft :" << f.cc << " and " << e->get_elapsed_frame(&f) << "with" << e->get_frame_count() << '\n';
+    sleep(1);
+    std::cout << "ft :" << f.cc << " and " << e->get_elapsed_frame(&f) << "with" << e->get_frame_count() << '\n';
+    sleep(2);
+    std::cout << "ft :" << f.cc << " and " << e->get_elapsed_frame(&f) << "with" << e->get_frame_count() << '\n';
+
+    //while(e->is_running())
+      //std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+    e->join();
+}
+
+void test_scope()
+{
+	ImGui::Text("Hello");
+}
