@@ -34,7 +34,7 @@ void event_manager::unregister_watcher(event_watcher* e)
 
   // TODO BUGGED
 
-  //std::unique_lock<std::mutex> _lock (internal_lock);
+  std::unique_lock<std::mutex> _lock (internal_lock);
   /*for(auto it = watchers.begin(); it!=watchers.end(); it++)
   {
     if(e == *it)
@@ -43,8 +43,9 @@ void event_manager::unregister_watcher(event_watcher* e)
       internal_check = true;
     }
   }*/
+  watchers.erase(std::remove(watchers.begin(), watchers.end(), e), watchers.end());
 
-  //_lock.unlock();
+  _lock.unlock();
 
   if(!internal_check)
     throw std::runtime_error("Enable to locate and unregister watcher");
@@ -69,8 +70,8 @@ void event_manager::poll_event()
         if(e.key.code == sf::Keyboard::Up)
           std::cerr << "UP" << '\n';*/
         if(ne.event.type == sf::Event::KeyPressed){
-          std::cerr << "hey" << '\n';
-          std::for_each(watchers.begin(), watchers.end(), [&](event_watcher* n){if(KEYBOARD == n->validate()){std::cerr << "validate ok : " << n->validate() << '\n';n->notify(&ne);}});
+          //std::cerr << "hey" << '\n';
+          std::for_each(watchers.begin(), watchers.end(), [&](event_watcher* n){if(KEYBOARD == n->validate())n->notify(&ne);});
         }
       }
       else if(ne.type == CLOSE)

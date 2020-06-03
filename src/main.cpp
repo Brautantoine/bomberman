@@ -4,6 +4,7 @@
 #include "graphics/engine.hpp"
 #include "graphics/dummy_sprite.hpp"
 #include "events/event_processor.hpp"
+#include "elements/bomberman.hpp"
 
 #include <iostream>
 #include <thread>
@@ -29,13 +30,13 @@ int main()
     dummy_sprite ddd(2);
     dummy_sprite erd(4);
     lm->registerDrawable(&d);
-    lm->registerDrawable(&dd);
-    lm->registerDrawable(&ddd);
-    lm->registerDrawable(&erd);
+    //lm->registerDrawable(&dd);
+    //lm->registerDrawable(&ddd);
+    //lm->registerDrawable(&erd);
 
     event_processor ep(KEYBOARD,[&](void* data)
     {
-      std::cerr << "lambda called" << '\n';
+      //std::cerr << "lambda called" << '\n';
       sf::Event e = ((game_event::event*)data)->event;
       if(e.type == sf::Event::KeyPressed)
       {
@@ -45,6 +46,22 @@ int main()
         }
       }
     });
+
+    event_processor ep2(KEYBOARD,[&](void* data)
+    {
+      //std::cerr << "lambda called" << '\n';
+      sf::Event e = ((game_event::event*)data)->event;
+      if(e.type == sf::Event::KeyPressed)
+      {
+        if(e.key.code == sf::Keyboard::Down)
+        {
+          std::cerr << "DOWN" << '\n';
+          lm->unregisterDrawable(&d);
+        }
+      }
+    });
+
+    bomberman bman(PC,0);
 
     std::cout << "ft :" << f.cc << " and " << e->get_elapsed_frame(&f) << "with" << e->get_frame_count() << '\n';
     sleep(1);
@@ -56,9 +73,4 @@ int main()
       //std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
     e->join();
-}
-
-void test_scope()
-{
-	ImGui::Text("Hello");
 }

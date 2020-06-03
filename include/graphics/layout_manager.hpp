@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <mutex>
+#include <algorithm>
 
 #include "graphics/drawable.hpp"
 

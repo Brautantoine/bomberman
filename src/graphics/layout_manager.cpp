@@ -45,18 +45,19 @@ std::unique_lock<std::mutex> _lock (internal_lock);
 
 void layout_manager::unregisterDrawable(drawable* d)
 {
-  bool internal_check = false;
+  bool internal_check = true;
 
   std::unique_lock<std::mutex> _lock (internal_lock);
 
-  for(auto it = drawables.begin(); it!=drawables.end(); ++it)
+  /*for(auto it = drawables.begin(); it!=drawables.end(); ++it)
   {
     if(d == *it)
     {
       drawables.erase(it);
       internal_check = true;
     }
-  }
+  }*/
+  drawables.erase(std::remove(drawables.begin(), drawables.end(), d), drawables.end());
 
   _lock.unlock();
 

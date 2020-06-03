@@ -8,6 +8,8 @@ enum event_type
   END_GAME,
   SPAWN_BOMB,
   CLOSE,
+  GENERATED_INPUT,
+  NONE,
 };
 
 #endif //EVENT_TYPE_HPP
