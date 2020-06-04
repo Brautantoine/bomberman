@@ -5,6 +5,8 @@
 #include "graphics/dummy_sprite.hpp"
 #include "events/event_processor.hpp"
 #include "elements/bomberman.hpp"
+#include "elements/block.hpp"
+#include "graphics/background.hpp"
 
 #include <iostream>
 #include <thread>
@@ -25,14 +27,17 @@ int main()
     frame_timer f = {0,0,0,false};
     engine* e = engine::getInstance();
     layout_manager* lm = layout_manager::getInstance();
-    dummy_sprite d(0);
-    dummy_sprite dd(5);
+    dummy_sprite d(1);
+    /*dummy_sprite dd(5);
     dummy_sprite ddd(2);
-    dummy_sprite erd(4);
+    dummy_sprite erd(4);*/
     lm->registerDrawable(&d);
     //lm->registerDrawable(&dd);
     //lm->registerDrawable(&ddd);
     //lm->registerDrawable(&erd);
+    background b("ressources/background/1.png");
+    block bl("ressources/img/block.png",SPRITE_H*9,SPRITE_W*9,BLOCK);
+    block ubl("ressources/img/ublock.png",SPRITE_H*0,SPRITE_W*0,UBLOCK);
 
     event_processor ep(KEYBOARD,[&](void* data)
     {
@@ -43,6 +48,7 @@ int main()
         if(e.key.code == sf::Keyboard::Up)
         {
           std::cerr << "UP" << '\n';
+          bl.vanish();
         }
       }
     });

@@ -4,6 +4,9 @@
 enum e_type
 {
   character,
+  BLOCK,
+  UBLOCK,
+  BOMBE,
 };
 
 class elements
