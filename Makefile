@@ -28,7 +28,7 @@ COMPILE_FLAGS = -std=c++11 -Wall -Wextra
 INCLUDES = -I include/ -I /usr/local/include -I include/imgui -I include/imgui-SFML -I include/SFML-2.4.2
 LIBS_PATH = -L lib/SFML-2.4.2
 # Space-separated pkg-config libraries used by this project
-LIBS =-lsfml-graphics -lsfml-window -lsfml-system -lGL -lGLU -lgcc -lpthread
+LIBS =-lsfml-graphics -lsfml-window -lsfml-system -lGL -lGLU -lgcc -lpthread -lX11
 
 .PHONY: default_target
 default_target: release

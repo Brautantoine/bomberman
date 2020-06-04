@@ -34,6 +34,8 @@ void engine::run()
   //sf::CircleShape shape(100.f);
   //shape.setFillColor(sf::Color::Green);
 
+  XInitThreads();
+
   srand(time(NULL));
 
   sf::Clock deltaClock;
@@ -68,7 +70,7 @@ void engine::run()
 
       ImGui::Begin("Hello, world!",NULL,ImGuiWindowFlags_NoResize);
       if(ImGui::Button("Look at this pretty button"))
-        ;
+      {}
 //test_scope();
       ImGui::End();
 
@@ -89,6 +91,35 @@ void engine::run()
       ImGui::SFML::Render(window);
 
       window.display();
+
+      // OK this part is a crap ... but X11 brake when used with wild multi threading ...
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+      {
+        dir = 0;
+        /*std::cerr << "b left" << '\n';
+        sprite.move(-10,0);*/
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+      {
+        dir = 1;
+        //sprite.move(10,0);
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+      {
+        dir =2;
+        //sprite.move(0,-10);
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+      {
+        dir=3;
+        //sprite.move(0,10);
+      }
+      else
+      {
+        dir=-1;
+      }
+
+
       frame_count++;
   }
 }

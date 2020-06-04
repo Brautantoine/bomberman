@@ -19,6 +19,8 @@
 #include "events/event.hpp"
 #include "utils/simple_mail_box.hpp"
 
+#include <X11/Xlib.h>
+
 //typedef unsigned long long frame_timer;
 typedef struct _frame_timer
 {
@@ -39,6 +41,8 @@ public:
   unsigned long long get_elapsed_frame(frame_timer* timer);
   bool is_running() {return running;}
   void join() {engine_thread.join();}
+
+  int dir;
 
 protected:
 private:

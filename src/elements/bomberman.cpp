@@ -1,49 +1,79 @@
 #include "elements/bomberman.hpp"
 
-bomberman::bomberman(btype type, int id) : _type(type), _id(id), ep(NONE,[](void*){})
+bomberman::bomberman(int id) :_id(id)
 {
-  auto catch_event = [&](void* data)
+  switch(id)
   {
-    //std::cerr << "my bad" << '\n';
-    sf::Event e = ((game_event::event*)data)->event;
-    if(e.type == sf::Event::KeyPressed)
-    {
-      switch(e.key.code)
-      {
-        case sf::Keyboard::Up :
-        case sf::Keyboard::Down :
-        case sf::Keyboard::Left :
-        case sf::Keyboard::Right:
-        case sf::Keyboard::Z:
-        case sf::Keyboard::Q:
-        case sf::Keyboard::S:
-        case sf::Keyboard::D:
-          std::cerr << "input detected" << '\n';
-          mail_box.send(e);
-        default:
-          break;
-      }
-      /*if(e.key.code == sf::Keyboard::Up)
-      {
-        mail_box.send(sf::Keyboard::Up)
-      }*/
-    }
-  };
-
-  etype = character;
-
-  switch(_type)
-  {
-    case PC:
-      ep = event_processor(KEYBOARD,catch_event);
+    case 0:
+      texture.loadFromFile("ressources/img/b1.png");
+      sprite.setTexture(texture);
+      sprite.setPosition(SPRITE_H*0,SPRITE_W*1);
       break;
-    case NPC:
-      ep = event_processor(GENERATED_INPUT,catch_event);
+    case 1:
+      texture.loadFromFile("ressources/img/b2.png");
+      sprite.setTexture(texture);
+      sprite.setPosition(SPRITE_H*9,SPRITE_W*9);
       break;
+
+
   }
+  layout_manager::getInstance()->registerDrawable(this);
 }
 
 bomberman::~bomberman()
 {
+  layout_manager::getInstance()->unregisterDrawable(this);
+}
 
+void bomberman::update()
+{
+  engine* e = engine::getInstance();
+  switch(_id)
+  {
+    case 0:
+    //std::cerr << "b left" << '\n';
+
+    switch(e->dir)
+    {
+      case 0:
+      sprite.move(-10,0);
+        break;
+      case 1:
+      sprite.move(10,0);
+        break;
+      case 2:
+      sprite.move(0,-10);
+        break;
+      case 3:
+      sprite.move(0,10);
+        break;
+    }
+
+    /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    {
+      std::cerr << "b left" << '\n';
+      sprite.move(-10,0);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    {
+      sprite.move(10,0);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    {
+      sprite.move(0,-10);
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    {
+      sprite.move(0,10);
+    }*/
+      break;
+    case 2:
+      break;
+  }
+}
+
+void bomberman::draw(sf::RenderWindow& w)
+{
+  //std::cerr << "drawn" << '\n';
+  w.draw(sprite);
 }

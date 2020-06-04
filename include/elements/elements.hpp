@@ -3,7 +3,8 @@
 
 enum e_type
 {
-  character,
+  PC,
+  NPC,
   BLOCK,
   UBLOCK,
   BOMBE,
