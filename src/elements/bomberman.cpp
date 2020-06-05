@@ -27,27 +27,51 @@ bomberman::~bomberman()
 
 void bomberman::update()
 {
-  engine* e = engine::getInstance();
+  //engine* e = engine::getInstance();
+
   switch(_id)
   {
     case 0:
     //std::cerr << "b left" << '\n';
 
-    switch(e->dir)
+    switch(engine::getInstance()->get_input().arrow)
     {
-      case 0:
+      case LEFT:
       sprite.move(-10,0);
         break;
-      case 1:
+      case RIGHT:
       sprite.move(10,0);
         break;
-      case 2:
+      case UP:
       sprite.move(0,-10);
         break;
-      case 3:
+      case DOWN:
       sprite.move(0,10);
         break;
+      case STOP:
+        break;
     }
+    break;
+    case 1:
+    switch(engine::getInstance()->get_input().zqsd)
+    {
+      case LEFT:
+      sprite.move(-10,0);
+        break;
+      case RIGHT:
+      sprite.move(10,0);
+        break;
+      case UP:
+      sprite.move(0,-10);
+        break;
+      case DOWN:
+      sprite.move(0,10);
+        break;
+      case STOP:
+        break;
+    }
+    break;
+
 
     /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     {
@@ -66,9 +90,6 @@ void bomberman::update()
     {
       sprite.move(0,10);
     }*/
-      break;
-    case 2:
-      break;
   }
 }
 
