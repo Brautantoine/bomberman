@@ -14,9 +14,13 @@ engine::engine() : window(sf::VideoMode(640, 480), "Bomberman"), em(event_manage
 {
   window.setVerticalSyncEnabled(true);
   window.setFramerateLimit(60);
+  window.setKeyRepeatEnabled(false);
   ImGui::SFML::Init(window);
 
   lm = layout_manager::getInstance();
+
+  raw.arrow = STOP;
+  raw.zqsd = STOP;
 
   running = true;
 
@@ -33,8 +37,8 @@ void engine::run()
   //static bool show_shape(true);
   //sf::CircleShape shape(100.f);
   //shape.setFillColor(sf::Color::Green);
-
-  XInitThreads();
+  static bool zqsdPressed = false;
+  //XInitThreads();
 
   srand(time(NULL));
 
@@ -93,31 +97,65 @@ void engine::run()
       window.display();
 
       // OK this part is a crap ... but X11 brake when used with wild multi threading ...
+
+
+
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
       {
-        dir = 0;
-        /*std::cerr << "b left" << '\n';
-        sprite.move(-10,0);*/
+        //std::cerr << "left" << '\n';
+        raw.arrow = LEFT;
       }
       else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
       {
-        dir = 1;
+        raw.arrow = RIGHT;
         //sprite.move(10,0);
       }
       else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
       {
-        dir =2;
+        raw.arrow = UP;
         //sprite.move(0,-10);
       }
       else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
       {
-        dir=3;
+        raw.arrow = DOWN;
         //sprite.move(0,10);
       }
       else
       {
-        dir=-1;
+        raw.arrow = STOP;
       }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+      {
+        //std::cerr << "left" << '\n';
+        raw.zqsd = LEFT;
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+      {
+        raw.zqsd = RIGHT;
+        //sprite.move(10,0);
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+      {
+        raw.zqsd = UP;
+        //sprite.move(0,-10);
+      }
+      else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+      {
+        raw.zqsd = DOWN;
+        //sprite.move(0,10);
+      }
+      else
+      {
+        raw.zqsd = STOP;
+      }
+
+      /*if(zqsdPressed)
+      {
+        zqsdPressed = false;
+        raw.zqsd = STOP;
+      }*/
+
+
 
 
       frame_count++;

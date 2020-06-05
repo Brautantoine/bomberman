@@ -19,6 +19,7 @@ public:
   void update();
   void draw(sf::RenderWindow& w);
   int getLayer(){return 1;}
+  bool check_outbound(direction dir);
 protected:
 private:
 
@@ -27,6 +28,7 @@ private:
 
   //btype _type;
   int _id;
+  int speed;
 
   sf::Texture texture;
   sf::Sprite sprite;

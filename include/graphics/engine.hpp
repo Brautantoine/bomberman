@@ -21,6 +21,9 @@
 
 #include <X11/Xlib.h>
 
+#define SCREEN_W 480
+#define SCREEN_H 640
+
 //typedef unsigned long long frame_timer;
 typedef struct _frame_timer
 {
@@ -29,6 +32,21 @@ typedef struct _frame_timer
   unsigned long long  elapsed;
   bool  reset;
 }frame_timer;
+
+enum direction
+{
+  UP,
+  LEFT,
+  RIGHT,
+  DOWN,
+  STOP,
+};
+
+struct raw_key_input
+{
+  direction arrow;
+  direction zqsd;
+};
 
 class engine
 {
@@ -41,6 +59,7 @@ public:
   unsigned long long get_elapsed_frame(frame_timer* timer);
   bool is_running() {return running;}
   void join() {engine_thread.join();}
+  raw_key_input get_input(){return raw;}
 
   int dir;
 
@@ -54,6 +73,7 @@ private:
   simple_mail_box<game_event::event>& mail_box;
 
   unsigned long long frame_count;
+  raw_key_input raw;
 
   bool running;
 

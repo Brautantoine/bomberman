@@ -50,7 +50,7 @@ int main()
         if(e.key.code == sf::Keyboard::Up)
         {
           std::cerr << "UP" << '\n';
-          bl.vanish();
+          //bl.vanish();
         }
       }
     });
@@ -61,7 +61,7 @@ int main()
       sf::Event e = ((game_event::event*)data)->event;
       if(e.type == sf::Event::KeyPressed)
       {
-        if(e.key.code == sf::Keyboard::Down)
+        if(e.key.code == sf::Keyboard::Q)
         {
           std::cerr << "DOWN" << '\n';
           //lm->unregisterDrawable(&d);
@@ -84,7 +84,8 @@ int main()
     while(1)
     {
       bman.update();
-      std::this_thread::sleep_for(std::chrono::milliseconds(100));
+      bman2.update();
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 
     e->join();
