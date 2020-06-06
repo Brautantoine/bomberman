@@ -11,27 +11,29 @@
 #include <SFML/Window/Event.hpp>
 
 
-class bomberman : virtual elements, virtual sprite
+class bomberman : public elements, public sprite
 {
 public:
   bomberman(int id);
   virtual ~bomberman();
-  void update();
+  virtual void update(std::vector<elements*> e);
   void draw(sf::RenderWindow& w);
-  int getLayer(){return 1;}
+  int getLayer(){return 3;}
   bool check_outbound(direction dir);
+  bool check_collision(int x, int y);
 protected:
+  int _id;
+  int speed;
+
+  sf::Texture texture;
+  sf::Sprite sprite;
 private:
 
   //simple_mail_box<sf::Event> mail_box;
   //event_processor ep;
 
   //btype _type;
-  int _id;
-  int speed;
 
-  sf::Texture texture;
-  sf::Sprite sprite;
 };
 
 #endif //BOMBERMAN_HPP

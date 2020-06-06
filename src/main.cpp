@@ -7,6 +7,7 @@
 #include "elements/bomberman.hpp"
 #include "elements/block.hpp"
 #include "graphics/background.hpp"
+#include "game/gamecore.hpp"
 
 #include <iostream>
 #include <thread>
@@ -35,13 +36,13 @@ int main()
     //lm->registerDrawable(&dd);
     //lm->registerDrawable(&ddd);
     //lm->registerDrawable(&erd);
-    background b("ressources/background/1.png");
+    /*background b("ressources/background/1.png");
     block bl("ressources/img/block.png",SPRITE_H*8,SPRITE_W*9,BLOCK);
-    block ubl("ressources/img/ublock.png",SPRITE_H*0,SPRITE_W*0,UBLOCK);
+    block ubl("ressources/img/ublock.png",SPRITE_H*0,SPRITE_W*0,UBLOCK);*/
 
 
 
-    event_processor ep(KEYBOARD,[&](void* data)
+    /*event_processor ep(KEYBOARD,[&](void* data)
     {
       //std::cerr << "lambda called" << '\n';
       sf::Event e = ((game_event::event*)data)->event;
@@ -67,10 +68,13 @@ int main()
           //lm->unregisterDrawable(&d);
         }
       }
-    });
+    });*/
 
-    bomberman bman(0);
-    bomberman bman2(1);
+    //bomberman bman(0);
+    //bomberman bman2(1);
+
+    gamecore g;
+    g.run();
 
     std::cout << "ft :" << f.cc << " and " << e->get_elapsed_frame(&f) << "with" << e->get_frame_count() << '\n';
     //sleep(1);
@@ -81,12 +85,12 @@ int main()
     //while(e->is_running())
       //std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-    while(1)
+    /*while(1)
     {
       bman.update();
       bman2.update();
       std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
+    }*/
 
     e->join();
 }

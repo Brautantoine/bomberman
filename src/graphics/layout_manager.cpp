@@ -26,16 +26,18 @@ std::vector<drawable*> layout_manager::getDrawables()
   std::unique_lock<std::mutex> _lock (internal_lock);
   auto drawables_copy(drawables);
   _lock.unlock();
-
   return drawables_copy;
+  //return std::vector<drawable*>();
 }
 
 void layout_manager::registerDrawable(drawable* d)
 {
 std::unique_lock<std::mutex> _lock (internal_lock);
-
-  drawables.emplace_back(d);
+std::cerr << "nf of drawables before emplace" << drawables.size() << '\n';
+  drawables.push_back(d);
+  std::cerr << "nf of drawables" << drawables.size() << '\n';
   quick_sort(0,drawables.size()-1);
+  std::cerr << "nf of drawables after quicksort" << drawables.size() << '\n';
 
   /*for(drawable* p : drawables)
     std::cerr << "layer : " << p->getLayer() << '\n';*/
@@ -46,6 +48,7 @@ std::unique_lock<std::mutex> _lock (internal_lock);
 void layout_manager::unregisterDrawable(drawable* d)
 {
   bool internal_check = true;
+std::cerr << "unregister called for " << d << '\n';
 
   std::unique_lock<std::mutex> _lock (internal_lock);
 
@@ -57,7 +60,9 @@ void layout_manager::unregisterDrawable(drawable* d)
       internal_check = true;
     }
   }*/
-  drawables.erase(std::remove(drawables.begin(), drawables.end(), d), drawables.end());
+  std::cerr << "nb of sprite before remove" << drawables.size() << '\n';
+  drawables.erase(std::remove(drawables.begin(), drawables.end(),d), drawables.end());
+  std::cerr << "nb of sprite after remove" << drawables.size() << '\n';
 
   _lock.unlock();
 
