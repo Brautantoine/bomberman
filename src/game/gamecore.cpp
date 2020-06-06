@@ -16,6 +16,34 @@ void gamecore::run()
   bool spawn_b_1 = false;
   bool spawn_b_2 = false;
 
+  volatile bool menu_on = true;
+  volatile int nb_pc = 0;
+
+  widget w([&](){ImGui::Begin("Bomberman v-1.0.0",NULL,ImGuiWindowFlags_NoResize);
+  if(ImGui::Button("1 joueur"))
+  {
+    nb_pc = 1;
+    menu_on = false;
+  }
+  if(ImGui::Button("2 joueur"))
+  {
+    nb_pc = 2;
+    menu_on = false;
+  }
+//test_scope();
+  ImGui::End();});
+
+
+  //block bblocks[2];
+  //std::cerr << "background" << '\n';
+  background b("ressources/background/1.png");
+  bombe bomb;
+//std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  //bomberman bman(0);
+  while(menu_on);
+
+  w.vanish();
+
   event_processor ep(KEYBOARD,[&](void* data)
   {
     //std::cerr << "lambda called" << '\n';
@@ -36,16 +64,13 @@ void gamecore::run()
     }
   });
 
-
-  //block bblocks[2];
-  //std::cerr << "background" << '\n';
-  background b("ressources/background/1.png");
-//std::this_thread::sleep_for(std::chrono::milliseconds(50));
-  //bomberman bman(0);
   bmans.push_back(new bomberman(0));
   //std::this_thread::sleep_for(std::chrono::milliseconds(50));
   //bomberman bman2(1);
-  bmans.push_back(new npc(1));
+  if(nb_pc == 2)
+    bmans.push_back(new bomberman(1));
+  else
+    bmans.push_back(new npc(1));
   //std::this_thread::sleep_for(std::chrono::milliseconds(50));
 
   /*blocks.emplace_back("ressources/img/ublock.png",SPRITE_H*-1,SPRITE_W*-1,UBLOCK);
@@ -94,6 +119,9 @@ blocks.push_back(new block("ressources/img/ublock.png",SPRITE_H*1,SPRITE_W*1,UBL
     {
       std::cerr << "spawn_b_1" << '\n';
       spawn_b_1 = false;
+      position p = bmans.at(0)->get_position();
+      bomb.spawn(p.x,p.y);
+      //blocks.push_back(new block("ressources/img/ublock.png",p.x,p.y,UBLOCK));
     }
 
     if(spawn_b_2)

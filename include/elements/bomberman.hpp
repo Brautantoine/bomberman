@@ -10,6 +10,17 @@
 
 #include <SFML/Window/Event.hpp>
 
+struct position
+{
+  int x;
+  int y;
+
+  position(int _x, int _y)
+  {
+    x = _x;
+    y = _y;
+  }
+};
 
 class bomberman : public elements, public sprite
 {
@@ -21,6 +32,7 @@ public:
   int getLayer(){return 3;}
   bool check_outbound(direction dir);
   bool check_collision(int x, int y);
+  position get_position() { return position(_x,_y);}
 protected:
   int _id;
   int speed;

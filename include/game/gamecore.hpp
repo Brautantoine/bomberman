@@ -6,7 +6,12 @@
 #include "elements/bomberman.hpp"
 #include "elements/npc.hpp"
 #include "graphics/background.hpp"
+#include "graphics/widget.hpp"
 #include "elements/block.hpp"
+#include "elements/bombe.hpp"
+
+#include "imgui.h"
+#include "imgui-SFML.h"
 
 #include <vector>
 

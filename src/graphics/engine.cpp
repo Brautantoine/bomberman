@@ -72,11 +72,11 @@ void engine::run()
         // Debug test
       ImGui::SFML::Update(window, deltaClock.restart());
 
-      ImGui::Begin("Hello, world!",NULL,ImGuiWindowFlags_NoResize);
+      /*ImGui::Begin("Hello, world!",NULL,ImGuiWindowFlags_NoResize);
       if(ImGui::Button("Look at this pretty button"))
       {}
 //test_scope();
-      ImGui::End();
+      ImGui::End();*/
 
       window.clear(sf::Color(0xCE, 0xCE, 0xCE));
 
