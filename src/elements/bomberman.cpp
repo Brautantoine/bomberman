@@ -5,14 +5,16 @@ bomberman::bomberman(int id) :_id(id)
   switch(id)
   {
     case 0:
-      texture.loadFromFile("ressources/img/b1.png");
+      if(!(texture.loadFromFile("ressources/img/b1.png")))
+      throw std::runtime_error("can't load b1.png");
       sprite.setTexture(texture);
       sprite.setPosition(SPRITE_H*0,SPRITE_W*1);
       _x = SPRITE_H*0;
       _y = SPRITE_W*1;
       break;
     case 1:
-      texture.loadFromFile("ressources/img/b2.png");
+      if(!(texture.loadFromFile("ressources/img/b2.png")))
+      throw std::runtime_error("can't load b2.png");
       sprite.setTexture(texture);
       sprite.setPosition(SPRITE_H*9,SPRITE_W*9);
       _x = SPRITE_H*9;
