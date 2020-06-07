@@ -79,7 +79,7 @@ void npc::update(std::vector<elements*> e)
     for(elements* el : e)
     {
       std::cerr << "checking collisin for" << _x << ":" << _y << ":" << _x << ":" << _y+SPRITE_H << '\n';
-      if(!(el->check_collision(_x,_y-speed+20) && el->check_collision(_x+SPRITE_W,_y-speed+20)))
+      if(!(el->check_collision(_x+5,_y-speed+20) && el->check_collision(_x+SPRITE_W-5,_y-speed+20)))
         validate = false;
     }
     if(check_outbound(UP))
@@ -101,7 +101,7 @@ void npc::update(std::vector<elements*> e)
     for(elements* el : e)
     {
       std::cerr << "type : " << el->get_type() << '\n';
-      if(!(el->check_collision(_x,_y+SPRITE_H+speed-20) && el->check_collision(_x+SPRITE_W,_y+SPRITE_H+speed-20)))
+      if(!(el->check_collision(_x+5,_y+SPRITE_H+speed-20) && el->check_collision(_x-5+SPRITE_W,_y+SPRITE_H+speed-20)))
         validate = false;
     }
     if(check_outbound(DOWN))

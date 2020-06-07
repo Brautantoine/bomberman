@@ -30,9 +30,11 @@ public:
   virtual void update(std::vector<elements*> e);
   void draw(sf::RenderWindow& w);
   int getLayer(){return 3;}
+  e_type get_type() {return etype;}
   bool check_outbound(direction dir);
   bool check_collision(int x, int y);
   position get_position() { return position(_x,_y);}
+  int get_id() {return _id;}
 protected:
   int _id;
   int speed;

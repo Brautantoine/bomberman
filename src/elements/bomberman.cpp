@@ -8,9 +8,9 @@ bomberman::bomberman(int id) :_id(id)
       if(!(texture.loadFromFile("ressources/img/b1.png")))
       throw std::runtime_error("can't load b1.png");
       sprite.setTexture(texture);
-      sprite.setPosition(SPRITE_H*0,SPRITE_W*1);
+      sprite.setPosition(SPRITE_H*0,SPRITE_W*0);
       _x = SPRITE_H*0;
-      _y = SPRITE_W*1;
+      _y = SPRITE_W*0;
       break;
     case 1:
       if(!(texture.loadFromFile("ressources/img/b2.png")))
@@ -26,6 +26,7 @@ bomberman::bomberman(int id) :_id(id)
 
   }
   speed = 10;
+  etype = PC;
   layout_manager::getInstance()->registerDrawable(this);
 }
 
@@ -62,7 +63,7 @@ void bomberman::update(std::vector<elements*> e)
       for(elements* el : e)
       {
         std::cerr << "checking collisin for" << _x << ":" << _y << ":" << _x << ":" << _y+SPRITE_H << '\n';
-        if(!(el->check_collision(_x-speed-10,_y+20) && el->check_collision(_x-speed-10,_y+SPRITE_H-20)))
+        if(!(el->check_collision(_x-speed-10,_y+35) && el->check_collision(_x-speed-10,_y+SPRITE_H-25)))
           validate = false;
       }
       if(check_outbound(LEFT))
@@ -83,7 +84,7 @@ void bomberman::update(std::vector<elements*> e)
       for(elements* el : e)
       {
         std::cerr << "checking collisin for" << _x << ":" << _y << ":" << _x << ":" << _y+SPRITE_H << '\n';
-        if(!(el->check_collision(_x+SPRITE_H-10+speed,_y+20) && el->check_collision(_x+SPRITE_H+speed-10,_y+SPRITE_H-20)))
+        if(!(el->check_collision(_x+SPRITE_H-10+speed,_y+35) && el->check_collision(_x+SPRITE_H+speed-10,_y+SPRITE_H-25)))
           validate = false;
       }
       if(check_outbound(RIGHT))
@@ -105,7 +106,7 @@ void bomberman::update(std::vector<elements*> e)
       for(elements* el : e)
       {
         std::cerr << "checking collisin for" << _x << ":" << _y << ":" << _x << ":" << _y+SPRITE_H << '\n';
-        if(!(el->check_collision(_x,_y-speed+20) && el->check_collision(_x+SPRITE_W,_y-speed+20)))
+        if(!(el->check_collision(_x+5,_y-speed+20) && el->check_collision(_x+SPRITE_W-5,_y-speed+20)))
           validate = false;
       }
       if(check_outbound(UP))
@@ -127,7 +128,7 @@ void bomberman::update(std::vector<elements*> e)
       for(elements* el : e)
       {
         std::cerr << "type : " << el->get_type() << '\n';
-        if(!(el->check_collision(_x,_y+SPRITE_H+speed-20) && el->check_collision(_x+SPRITE_W,_y+SPRITE_H+speed-20)))
+        if(!(el->check_collision(_x+5,_y+SPRITE_H+speed-20) && el->check_collision(_x-5+SPRITE_W,_y+SPRITE_H+speed-20)))
           validate = false;
       }
       if(check_outbound(DOWN))
@@ -187,9 +188,9 @@ bool bomberman::check_outbound(direction dir)
 
 bool bomberman::check_collision(int x, int y)
 {
-  return (x <= _x &&
-          x >= _x + SPRITE_H &&
-          y <= _y &&
-          y >= _y + SPRITE_W
-        );
+        return (x <= _x ||
+                x >= _x + SPRITE_W ||
+                y <= _y ||
+                y >= _y + SPRITE_H
+              );
 }

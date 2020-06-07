@@ -162,6 +162,16 @@ void engine::run()
   }
 }
 
+void engine::close()
+{
+  window.close();
+  game_event::event e = {.type = CLOSE};
+  mail_box.send(e);
+  em->join();
+  running = false;
+}
+
+
 unsigned long long engine::get_elapsed_frame(frame_timer* timer)
 {
   timer->lc = timer->cc;

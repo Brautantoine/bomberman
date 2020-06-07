@@ -3,9 +3,9 @@
 
 enum e_type
 {
-  PC,
-  NPC,
-  BLOCK,
+  PC = 1,
+  NPC = 2,
+  BLOCK = 3,
   UBLOCK,
   BOMBE,
 };
@@ -13,7 +13,7 @@ enum e_type
 class elements
 {
 public:
-  virtual e_type get_type() {return etype;}
+  virtual e_type get_type() = 0;
   virtual bool check_collision(int x, int y) = 0;
 protected:
   e_type etype;

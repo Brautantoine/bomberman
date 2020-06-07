@@ -59,6 +59,7 @@ public:
   unsigned long long get_elapsed_frame(frame_timer* timer);
   bool is_running() {return running;}
   void join() {engine_thread.join();}
+  void close();
   raw_key_input get_input(){return raw;}
 
   int dir;

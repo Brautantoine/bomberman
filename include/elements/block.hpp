@@ -15,6 +15,7 @@ public:
   void vanish();
   void draw(sf::RenderWindow& w);
   int getLayer(){return 1;}
+  e_type get_type() {return _type;}
   void self_register();
 
   bool check_collision(int x, int y);
